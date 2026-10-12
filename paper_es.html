@@ -1,0 +1,433 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿Puede el aprendizaje automático pronosticar el Color del Año? Evidencia de Pantone 2000–2026, indicadores adelantados de la industria de pinturas y un pronóstico de tres opciones para 2027</title><meta name="description" content="Preprint: pronóstico del Color del Año Pantone 2027 con series de tiempo y machine learning.">
+<meta property="og:title" content="¿Puede el aprendizaje automático pronosticar el Color del Año? Evidencia de Pantone 2000–2026, indicadores adelantados de la industria de pinturas y un pronóstico de tres opciones para 2027"><meta property="og:description" content="Preprint: pronóstico del Color del Año Pantone 2027 con series de tiempo y machine learning."><meta property="og:image" content="figures/fig7_forecast_2027.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfaf7;--paper:#ffffff;--ink:#1d1d1f;--muted:#5f5f66;--line:#e4e1da;--accent:#B5502F;--soft:#f3efe8;--code:#f4f2ee}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--paper:#1c1c1e;--ink:#ecebe8;--muted:#a3a1a8;--line:#34343a;--accent:#E08A67;--soft:#24221f;--code:#26262a}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 "Source Serif 4",Georgia,serif}
+a{color:var(--accent)}
+.strip{display:flex;height:8px}.strip span{flex:1}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav .in{max-width:860px;margin:0 auto;padding:10px 16px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;font:500 14px/1.3 Inter,system-ui,sans-serif}
+nav a{color:var(--ink);text-decoration:none;opacity:.75}nav a:hover,nav a.on{opacity:1;color:var(--accent)}
+nav .brand{font-weight:700;opacity:1;margin-right:auto}
+main{max-width:860px;margin:0 auto;padding:28px 16px 64px}
+article{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:40px clamp(18px,5vw,56px)}
+.meta{font:600 12px/1.4 Inter,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font:700 clamp(26px,4vw,36px)/1.2 "Source Serif 4",Georgia,serif;margin:.4em 0 .5em}
+h2,h3,h4{font-family:Inter,system-ui,sans-serif;line-height:1.3}
+h3{font-size:20px;margin:2em 0 .6em;padding-top:.6em;border-top:1px solid var(--line)}
+.authors{font:500 16px/1.5 Inter,system-ui,sans-serif}.aff{color:var(--muted);font-size:14px;font-family:Inter,system-ui,sans-serif}
+.box{background:var(--soft);border-radius:8px;padding:14px 20px;margin:20px 0}
+.box h4{margin:.2em 0 .4em;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.box ul{margin:.2em 0;padding-left:1.2em}
+hr{border:0;border-top:1px solid var(--line);margin:28px 0}
+img{max-width:100%;height:auto;display:block;margin:18px auto 4px;border-radius:6px}
+p em:only-child{display:block;text-align:center;color:var(--muted);font-size:14.5px;font-family:Inter,system-ui,sans-serif}
+.tw{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font:14px/1.45 Inter,system-ui,sans-serif}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{border-bottom:2px solid var(--ink);font-weight:600}
+code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.88em}
+ul li{margin:.2em 0}
+.sw{display:inline-block;width:.95em;height:.95em;border-radius:3px;vertical-align:-.12em;margin-right:.3em;border:1px solid rgba(0,0,0,.15)}
+.refs li{font-size:15px;margin:.35em 0}
+footer{max-width:860px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font:13px/1.5 Inter,system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0}
+.card{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--paper)}
+.card .c{height:130px;display:flex;align-items:flex-end;padding:12px;font:700 22px Inter,system-ui,sans-serif}
+.card .t{padding:12px 14px;font:14px/1.5 Inter,system-ui,sans-serif}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.btn{display:inline-block;padding:10px 16px;border-radius:8px;border:1px solid var(--line);text-decoration:none;color:var(--ink);font:600 14px Inter,system-ui,sans-serif;background:var(--paper)}
+.btn.p{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lead{font-size:19px}
+</style></head><body>
+<div class="strip"><span style="background:#98B4D4"></span><span style="background:#C3447A"></span><span style="background:#BC243C"></span><span style="background:#7FCDCD"></span><span style="background:#E15D44"></span><span style="background:#55B4B0"></span><span style="background:#DFCFBE"></span><span style="background:#9B2335"></span><span style="background:#5B5EA6"></span><span style="background:#EFC050"></span><span style="background:#45B8AC"></span><span style="background:#D65076"></span><span style="background:#DD4124"></span><span style="background:#009B77"></span><span style="background:#B565A7"></span><span style="background:#955251"></span><span style="background:#F7CAC9"></span><span style="background:#88B04B"></span><span style="background:#5F4B8B"></span><span style="background:#FF6F61"></span><span style="background:#0F4C81"></span><span style="background:#939597"></span><span style="background:#6667AB"></span><span style="background:#BB2649"></span><span style="background:#FFBE98"></span><span style="background:#A47864"></span><span style="background:#F0EEE9"></span></div>
+<nav><div class="in"><a class="brand" href="index.html">Colour of the Year · ML</a>
+<a href="index.html" class="">Inicio</a><a href="paper_en.html" class="">Paper (EN)</a><a href="paper_es.html" class="on">Artículo (ES)</a>
+<a href="fashion_color_forecast.html">Notebook</a><a href="data/color_database.xlsx">Excel</a><a href="https://github.com/doar95/fashion-color-forecast">GitHub</a></div></nav>
+<main><article>
+<div class="meta">Preprint · sin revisión por pares · 12 de octubre de 2026 · <a href="paper_en.html">Read in English →</a></div>
+<h1>¿Puede el aprendizaje automático pronosticar el Color del Año? Evidencia de Pantone 2000–2026, indicadores adelantados de la industria de pinturas y un pronóstico de tres opciones para 2027</h1>
+<div class="authors">Claude<sup>a,*</sup> · David Aguilar<sup>b</sup> · Camila Gómez<sup>b</sup></div>
+<div class="aff"><sup>a</sup> Anthropic, San Francisco, CA, EE. UU. · <sup>b</sup> [Afiliación por completar]<br><sup>*</sup> Autor principal</div>
+<div class="box"><h4>Aspectos destacados</h4><ul><li>Base de 145 colores (Pantone, marcas de pintura, paletas por década) en HEX, RGB, CMYK, HSV y CIELAB.</li><li>Los colores Pantone son <em>antipersistentes</em>: cada elección se aleja de la anterior (p ≈ 0,02).</li><li>Diecisiete modelos de pronóstico: ninguno supera con claridad a la media histórica en error CIEDE2000.</li><li>Un clasificador de fusión de evidencia acertó la familia en su top 3 en 12 de 16 años.</li><li>Para 2027 pronosticamos Tierra/terracota (≈31 %), Azul (≈21 %) o Verde oliva (≈14 %).</li></ul></div>
+<div class="box"><h4>Palabras clave</h4>pronóstico de color · Color del Año · series de tiempo · aprendizaje automático · CIEDE2000 · ciclos de la moda</div>
+
+
+<h3>Resumen</h3>
+<p>Cada diciembre Pantone anuncia un "Color del Año" que influye en la moda, el diseño de producto y el diseño gráfico. Nos preguntamos si esa elección puede pronosticarse a partir de su propia historia. Construimos una base de datos con los 29 colores Pantone de 2000–2026, 45 Colores del Año de la industria de pinturas (Sherwin-Williams, Benjamin Moore, Behr y siete anuncios de 2027) y 71 colores por década de los años 1920 a 2020, cada uno descrito en sRGB, CMYK, HSV y CIELAB. Una prueba de permutación muestra que la serie de Pantone es antipersistente: los colores consecutivos difieren en un ΔE₀₀ medio de 41,5 frente a 36,2 en órdenes aleatorios (p = 0,023), mientras que las marcas de pintura derivan de forma persistente. Se evaluaron diecisiete modelos —ingenuo, media, tendencia, VAR, Ridge, análogos k-vecinos, bosque aleatorio, gradient boosting, proceso gaussiano, red neuronal, rotación de tono, novedad, consenso industrial y un modelo global agrupado— mediante un back-test de ventana creciente (walk-forward) en 2011–2026. Los mejores modelos reducen el error de color cerca de 28 % frente a una elección histórica al azar (ΔE₀₀ medio ≈ 25 frente a 35,6), pero son estadísticamente indistinguibles de la media histórica y sus pronósticos colapsan hacia el centro del espacio de color. Al reformular la tarea como clasificación en siete familias y fusionar cuatro expertos (frecuencia base, novedad, votos de la industria del mismo año y votos de los modelos), la familia correcta quedó entre las tres primeras en el 75 % de los años del back-test (azar: 43 %; p = 0,009). Con quince anuncios de 2027 ya públicos, el método pronostica para Pantone 2027: (1) un tono terracota Naranja/Tierra, #C76C4C (probabilidad calibrada ≈ 31 %); (2) un Azul medio y claro, #69B2CC (≈ 21 %); (3) un Verde-amarillo oliva, #9A9C49 (≈ 14 %). Discutimos por qué el aprendizaje automático aporta poco en una serie curatorial de 27 puntos y cómo el pronóstico podrá refutarse en diciembre de 2026.</p>
+<hr />
+<h3>1. Introducción</h3>
+<p>Desde 2000, el Pantone Color Institute selecciona cada año un "Color del Año" (COTY) que adoptan ampliamente la moda, la cosmética, el interiorismo y el diseño gráfico. Los fabricantes de pintura siguieron con sus propias selecciones (Sherwin-Williams desde 2011, Benjamin Moore desde 2012, Behr desde 2018). Estas elecciones las hacen comités de expertos, pero también son datos: una serie de tiempo anual, corta y multivariada de colores.</p>
+<p>Tres preguntas motivan este artículo. <strong>(P1)</strong> ¿Contiene la secuencia de Pantone estructura temporal —persistencia, tendencia, ciclos o novedad? <strong>(P2)</strong> ¿Pueden los modelos estadísticos y de aprendizaje automático (ML) pronosticar el color del año siguiente mejor que el azar, y cuáles? <strong>(P3)</strong> Con la información disponible el 12 de octubre de 2026, ¿cuáles son los candidatos más probables para el Color del Año Pantone 2027?</p>
+<p>Nuestras contribuciones son: (i) una base de datos abierta y auditable de 145 colores con descripción completa en espacios de color y armonías del círculo cromático, entregada como libro de Excel con muestras de color pintadas; (ii) una comparación rigurosa walk-forward de 17 modelos usando la métrica CIEDE2000; (iii) un clasificador de familias por fusión de evidencia que aprovecha los anuncios anticipados de la industria de pinturas; y (iv) un pronóstico pre-registrado y refutable de tres opciones para 2027.</p>
+<h3>2. Antecedentes</h3>
+<p><strong>Ciclos de la moda.</strong> Las teorías sociológicas explican la moda como una dinámica de imitación y distinción que impulsa la novedad continua (Simmel, 1957; Lipovetsky, 1994). Estudios cuantitativos del vestido hallaron ciclos largos y casi regulares en las siluetas (Kroeber, 1919; Lowe y Lowe, 1982), y Laver (1937) propuso que los estilos regresan tras unos 20–30 años. El pronóstico de color es una práctica profesional basada en paneles de expertos e investigación de tendencias más que en estadística (Diane y Cassidy, 2005); las revisiones históricas describen paletas características por década (Eiseman y Recker, 2011).</p>
+<p><strong>Pronóstico computacional del estilo.</strong> Al-Halah et al. (2017) pronosticaron la popularidad de estilos visuales de moda a partir de grandes colecciones de imágenes. Los estudios de competencias de pronóstico muestran que, en series cortas, los métodos simples son difíciles de superar y que los modelos de ML se sobreajustan con frecuencia (Makridakis et al., 2018). La combinación de pronósticos (Bates y Granger, 1969) y los productos de expertos (Hinton, 2002) son formas estándar de fusionar señales heterogéneas.</p>
+<p><strong>Diferencia de color.</strong> Las distancias euclidianas en sRGB no tienen significado perceptual. Trabajamos en CIELAB (D65) y medimos errores con CIEDE2000 (Luo et al., 2001), validado con los datos de prueba de Sharma et al. (2005). Como guía, ΔE₀₀ ≈ 1 es una diferencia apenas perceptible y ΔE₀₀ &gt; 30 suele indicar una familia de color distinta.</p>
+<h3>3. Datos</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Serie</th>
+<th>Periodo</th>
+<th>Registros</th>
+<th>Papel</th>
+<th>Fuente del HEX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pantone COTY</td>
+<td>2000–2026</td>
+<td>29 (27 años; dos colores en 2016 y 2021)</td>
+<td><strong>objetivo</strong></td>
+<td>Tabla Pantone de W3Schools, contrastada con comunicados de Pantone</td>
+</tr>
+<tr>
+<td>Sherwin-Williams</td>
+<td>2011–2027</td>
+<td>16 (se excluye la "cápsula" de 2025)</td>
+<td>indicador adelantado</td>
+<td>biblioteca de la marca (dataset colornerd)</td>
+</tr>
+<tr>
+<td>Benjamin Moore</td>
+<td>2012–2026</td>
+<td>15</td>
+<td>indicador adelantado</td>
+<td>biblioteca de la marca</td>
+</tr>
+<tr>
+<td>Behr</td>
+<td>2019–2027</td>
+<td>9</td>
+<td>indicador adelantado</td>
+<td>biblioteca de la marca / behr.com</td>
+</tr>
+<tr>
+<td>Otros anuncios 2027</td>
+<td>2027</td>
+<td>5 con HEX + 8 verbales</td>
+<td>votos 2027</td>
+<td>prensa de las marcas, rastreadores</td>
+</tr>
+<tr>
+<td>Paletas por década</td>
+<td>1920–2020</td>
+<td>71</td>
+<td>contexto de memoria larga</td>
+<td>valores estándar de colores con nombre (aproximados)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Cada color se convirtió a RGB, CMYK ingenuo, HSV/HSL, CIELAB y LCh; se asignó a una de 13 familias finas de tono (sectores de tono CIELAB calibrados con nombres de color, más reglas de <em>Neutro</em> y <em>Marrón/Tierra</em>) y a siete familias gruesas; y se complementó con sus armonías complementaria, análoga, triádica y complementaria dividida. La serie anual validada más larga es la de Pantone (27 años); las series de pintura son más cortas y no se encontró ninguna serie anual codificada de "colores de moda" anterior a 2000. Las paletas por década extienden el registro hasta los años veinte, pero con resolución decenal y códigos aproximados.</p>
+<p><img alt="Fig. 1" src="figures/fig1_pantone_timeline.png" />
+<em>Fig. 1. Colores del Año Pantone, 2000–2026.</em></p>
+<p><img alt="Fig. 2" src="figures/fig2_chromatic_circle.png" />
+<em>Fig. 2. Izquierda: recorrido de Pantone en el círculo cromático CIELAB (ángulo = tono, radio = croma); los puntos tenues son colores de marcas de pintura. Derecha: paletas por década 1920–2020.</em></p>
+<h3>4. Métodos</h3>
+<p><strong>4.1 Pruebas de estructura.</strong> Para cada serie comparamos el ΔE₀₀ medio entre colores consecutivos con su distribución bajo 5.000 permutaciones aleatorias del orden (pruebas unilaterales de persistencia y novedad), y calculamos las autocorrelaciones de rezago 1 de <em>L*</em>, <em>a*</em>, <em>b*</em>.</p>
+<p><strong>4.2 Modelos de pronóstico puntual.</strong> El objetivo es el vector CIELAB del año <em>t</em>. Se compararon diecisiete modelos: (1) persistencia ingenua; (2) media histórica creciente; (3) tendencia lineal; (4) deriva; (5) VAR(1) por MCO; (6) regresión Ridge con rezagos 1–2; (7) análogos por k vecinos más cercanos (Lorenz, 1969); (8) bosque aleatorio (Breiman, 2001) y (9) gradient boosting (Friedman, 2001) con rezagos y año; (10) regresión por proceso gaussiano con núcleo RBF + ruido blanco (Rasmussen y Williams, 2006); (11) una red neuronal de una capa oculta; (12) rotación de tono según el salto de tono mediano con signo; (13) máxima novedad respecto de los tres últimos colores; (14) consenso de la industria de pinturas del mismo año; (15) consenso desplazado por la diferencia mediana de luminosidad/croma de Pantone; (16) Ridge con rezagos y consenso industrial; (17) un Ridge "global" agrupado entrenado con las transiciones de las cuatro series. Todos los modelos de ML usan scikit-learn (Pedregosa et al., 2011) con semillas fijas.</p>
+<p><strong>4.3 Evaluación.</strong> Back-test walk-forward de ventana creciente para <em>t</em> = 2011…2026 (16 pronósticos), entrenando solo con información disponible antes del anuncio de Pantone en diciembre (Hyndman y Athanasopoulos, 2021). Métricas: ΔE₀₀ al color oficial más cercano del año <em>t</em>; acierto de familia gruesa; habilidad relativa frente a una elección al azar entre colores Pantone pasados; intervalos de confianza bootstrap al 95 %; pruebas de rangos con signo de Wilcoxon frente al referente aleatorio; estabilidad del ranking entre subperiodos y sensibilidad a hiperparámetros.</p>
+<p><strong>4.4 Clasificador por fusión de evidencia.</strong> Cada año recibe una probabilidad sobre siete familias gruesas a partir del producto de cuatro expertos: una <strong>frecuencia base</strong> suavizada de Laplace; un previo de <strong>novedad</strong> que asigna a las familias usadas en los dos años anteriores la probabilidad empírica de repetición (≈ 0,11); los <strong>votos de la industria</strong> de los colores de pintura del mismo año; y los <strong>votos de los modelos</strong> de los 17 pronósticos puntuales. Los expertos y sus ablaciones se evaluaron con acierto top-1/top-3 y la puntuación logarítmica (Gneiting y Raftery, 2007). Como los expertos no son independientes, la posterior se templó (<em>p</em> ∝ posterior^τ, τ = 0,35 elegido por la puntuación logarítmica del back-test; Guo et al., 2017).</p>
+<p><strong>4.5 De la familia al color.</strong> Para cada una de las tres familias más probables, el tono es la media circular ponderada por croma de los colores de la industria 2027 de esa familia, y la luminosidad y el croma son las medianas de las elecciones pasadas de Pantone en esa familia. El resultado se ajusta al más cercano de 11.730 colores comerciales de pintura (ΔE₀₀ &lt; 3) para dar una referencia reproducible.</p>
+<h3>5. Resultados</h3>
+<p><strong>5.1 Pantone es antipersistente.</strong> Los colores Pantone consecutivos distan en promedio ΔE₀₀ = 41,5, frente a 36,2 con orden aleatorio (p = 0,023 para novedad); la autocorrelación de rezago 1 de <em>b*</em> es −0,55 (alternancia amarillo–azul). Las marcas de pintura muestran la tendencia opuesta (ΔE₀₀ ≈ 27 frente a 30–33; p de novedad ≥ 0,83). Las paletas por década muestran el menor cambio entre los sesenta y los setenta (ΔE₀₀ ≈ 9) y el mayor hacia los ochenta (≈ 33); la década anterior más parecida está entre 1 y 9 décadas atrás, sin un periodo regular de "revival".</p>
+<p><strong>5.2 Pronósticos puntuales.</strong> La Tabla 1 resume el back-test.</p>
+<p><em>Tabla 1. Back-test walk-forward 2011–2026 (16 pronósticos). Menor ΔE₀₀ es mejor; elección al azar = 35,6.</em></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>ΔE₀₀ medio</th>
+<th>IC 95 %</th>
+<th>Acierto familia</th>
+<th>Habilidad vs azar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ridge global agrupado</td>
+<td>25,3</td>
+<td>21,1–29,9</td>
+<td>0,19</td>
+<td>+29 %</td>
+</tr>
+<tr>
+<td>Ensamble (media de todos)</td>
+<td>25,6</td>
+<td>21,1–30,2</td>
+<td>0,38</td>
+<td>+28 %</td>
+</tr>
+<tr>
+<td>Media histórica</td>
+<td>25,7</td>
+<td>21,1–30,8</td>
+<td>0,31</td>
+<td>+28 %</td>
+</tr>
+<tr>
+<td>Ridge (rezagos 1–2)</td>
+<td>25,8</td>
+<td>20,8–31,0</td>
+<td>0,19</td>
+<td>+28 %</td>
+</tr>
+<tr>
+<td>Proceso gaussiano</td>
+<td>26,5</td>
+<td>21,5–31,7</td>
+<td>0,25</td>
+<td>+25 %</td>
+</tr>
+<tr>
+<td>Bosque aleatorio</td>
+<td>27,0</td>
+<td>22,3–31,9</td>
+<td>0,25</td>
+<td>+24 %</td>
+</tr>
+<tr>
+<td>Análogos k-NN</td>
+<td>27,8</td>
+<td>22,8–34,3</td>
+<td>0,19</td>
+<td>+22 %</td>
+</tr>
+<tr>
+<td>VAR(1)</td>
+<td>27,9</td>
+<td>21,8–34,2</td>
+<td>0,25</td>
+<td>+21 %</td>
+</tr>
+<tr>
+<td>Gradient boosting</td>
+<td>28,9</td>
+<td>23,1–35,2</td>
+<td>0,19</td>
+<td>+19 %</td>
+</tr>
+<tr>
+<td>Tendencia lineal</td>
+<td>29,2</td>
+<td>23,8–34,3</td>
+<td>0,25</td>
+<td>+18 %</td>
+</tr>
+<tr>
+<td>Consenso industrial</td>
+<td>30,4</td>
+<td>25,0–35,6</td>
+<td>0,25</td>
+<td>+15 %</td>
+</tr>
+<tr>
+<td>Ridge + industria</td>
+<td>31,0</td>
+<td>24,9–37,5</td>
+<td>0,06</td>
+<td>+13 %</td>
+</tr>
+<tr>
+<td>Rotación de tono</td>
+<td>31,1</td>
+<td>24,4–38,3</td>
+<td>0,25</td>
+<td>+13 %</td>
+</tr>
+<tr>
+<td>Máxima novedad</td>
+<td>35,3</td>
+<td>27,0–43,7</td>
+<td>0,25</td>
+<td>+1 %</td>
+</tr>
+<tr>
+<td>Red neuronal (MLP)</td>
+<td>37,3</td>
+<td>29,7–44,8</td>
+<td>0,19</td>
+<td>−5 %</td>
+</tr>
+<tr>
+<td>Industria, estilo Pantone</td>
+<td>39,6</td>
+<td>33,5–46,6</td>
+<td>0,19</td>
+<td>−12 %</td>
+</tr>
+<tr>
+<td>Ingenuo (persistencia)</td>
+<td>40,4</td>
+<td>33,6–47,6</td>
+<td>0,06</td>
+<td>−14 %</td>
+</tr>
+<tr>
+<td>Deriva</td>
+<td>41,2</td>
+<td>34,2–48,5</td>
+<td>0,06</td>
+<td>−16 %</td>
+</tr>
+</tbody>
+</table></div>
+<p>Diez de los 17 modelos (más el ensamble) son significativamente mejores que una elección al azar (Wilcoxon p &lt; 0,05), pero sus intervalos de confianza se solapan casi por completo, y la media histórica es tan precisa como cualquier modelo de ML. La persistencia y la deriva son los peores modelos, en coherencia con §5.1. Los rankings son inestables (ρ de Spearman = 0,49 entre 2011–2018 y 2019–2026), y la red neuronal se sobreajusta en todas las configuraciones probadas (ΔE₀₀ ≈ 34).</p>
+<p><img alt="Fig. 3" src="figures/fig5_backtest_grid.png" />
+<em>Fig. 3. Color Pantone real (mitad superior de cada celda) frente al pronóstico de cada modelo (mitad inferior), con ΔE₀₀.</em></p>
+<p><strong>5.3 Clasificación por familias.</strong> La Tabla 2 presenta el clasificador de fusión y sus ablaciones.</p>
+<p><em>Tabla 2. Back-test por familias, 2011–2026 (7 clases; azar top-1 = 14 %, top-3 = 43 %).</em></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Expertos</th>
+<th>Top-1</th>
+<th>Top-3</th>
+<th>p (top-3 &gt; 3/7)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Solo frecuencia base</td>
+<td>0,06</td>
+<td>0,31</td>
+<td>0,89</td>
+</tr>
+<tr>
+<td>Solo novedad</td>
+<td>0,31</td>
+<td>0,63</td>
+<td>0,09</td>
+</tr>
+<tr>
+<td>Solo votos industria</td>
+<td>0,25</td>
+<td>0,56</td>
+<td>0,20</td>
+</tr>
+<tr>
+<td>Solo votos modelos</td>
+<td>0,25</td>
+<td>0,56</td>
+<td>0,20</td>
+</tr>
+<tr>
+<td>Base × novedad</td>
+<td>0,13</td>
+<td>0,69</td>
+<td>0,03</td>
+</tr>
+<tr>
+<td>Base × novedad × industria</td>
+<td>0,19</td>
+<td>0,56</td>
+<td>0,20</td>
+</tr>
+<tr>
+<td><strong>Fusión completa</strong></td>
+<td>0,19</td>
+<td><strong>0,75</strong></td>
+<td><strong>0,009</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>La fusión completa incluyó la familia correcta entre sus tres primeras en 12 de 16 años. Su acierto top-1 (19 %) apenas supera al azar, y la posterior sin templar es demasiado confiada (puntuación logarítmica −2,21 frente a −1,95 de una apuesta uniforme); tras templarla, mejora a −1,85.</p>
+<h3>6. Pronóstico para 2027</h3>
+<p>Al 12 de octubre de 2026 se habían anunciado quince colores 2027: siete <em>Naranja/Tierra</em> (p. ej., Dutch Boy <em>Deep Rooted</em>, Dunn-Edwards <em>French Press Coffee</em>, PPG <em>Country Soil</em>), cinco <em>Azules</em> (Valspar <em>Cottage Door</em>, Glidden <em>Artifact</em>, WGSN × Coloro <em>Luminous Blue</em>, …) y tres <em>Verdes</em> (Sherwin-Williams <em>Celery</em>, Behr <em>Grounded</em>, Dulux <em>Soulful Sage</em>). El pronóstico puntual ponderado por habilidad de los 17 modelos es un marrón apagado (#A7816C). El previo de novedad penaliza Naranja/Tierra (Pantone 2025 fue <em>Mocha Mousse</em>) y Neutro (2026 fue <em>Cloud Dancer</em>), pero los votos de la industria y de los modelos pesan más.</p>
+<p><em>Tabla 3. Color del Año Pantone 2027: pronóstico de tres opciones (pre-registrado el 12 de octubre de 2026).</em></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Familia</th>
+<th>p calibrada</th>
+<th>HEX</th>
+<th>RGB</th>
+<th>CMYK (%)</th>
+<th>CIELAB</th>
+<th>Referencia comercial más cercana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Naranja/Tierra (terracota)</td>
+<td>≈ 31 %</td>
+<td><span class="sw" style="background:#C76C4C"></span><strong>#C76C4C</strong></td>
+<td>199, 108, 76</td>
+<td>0, 46, 62, 22</td>
+<td>55,5; 33,2; 33,7</td>
+<td>Behr M210-6 "Orange Liqueur"</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Azul (azul medio claro)</td>
+<td>≈ 21 %</td>
+<td><span class="sw" style="background:#69B2CC"></span><strong>#69B2CC</strong></td>
+<td>105, 178, 204</td>
+<td>49, 13, 0, 20</td>
+<td>68,9; −15,8; −20,3</td>
+<td>Behr 560D-5 "Ocean View"</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Verde (oliva / verde-amarillo)</td>
+<td>≈ 14 %</td>
+<td><span class="sw" style="background:#9A9C49"></span><strong>#9A9C49</strong></td>
+<td>154, 156, 73</td>
+<td>1, 0, 53, 39</td>
+<td>62,6; −12,6; 42,6</td>
+<td>Behr M330-6 "Keemun"</td>
+</tr>
+</tbody>
+</table></div>
+<p><img alt="Fig. 7" src="figures/fig7_forecast_2027.png" />
+<em>Fig. 4. Las tres opciones con sus armonías complementaria, análogas y triádicas.</em></p>
+<p><img alt="Fig. 8" src="figures/fig8_circle_2027.png" />
+<em>Fig. 5. Recorrido reciente de Pantone, señales de pintura 2027 y las tres opciones en el círculo cromático.</em></p>
+<p>Las tres opciones suman ≈ 67 % de la probabilidad calibrada, en línea con el 75 % de acierto del back-test. <strong>Criterio de refutación:</strong> el pronóstico se considera correcto si el color Pantone 2027 pertenece a una de las tres familias, y preciso si su ΔE₀₀ con la opción correspondiente es menor que 20.</p>
+<h3>7. Discusión y limitaciones</h3>
+<p>El hallazgo principal es negativo para el aprendizaje automático y positivo para la estructura. En una serie curatorial de 27 puntos, los modelos flexibles de ML no aportan ventaja medible sobre la media histórica, y los pronósticos óptimos en ΔE convergen a un color central poco informativo. Lo que <em>sí</em> es pronosticable es grueso: Pantone rara vez repite la familia de los dos años anteriores (≈ 11 % de las veces), y las marcas de pintura, que anuncian meses antes, contienen algo de información sobre la familia que elegirá Pantone.</p>
+<p>Las limitaciones incluyen: (i) muestra diminuta y ventana de prueba corta (16 pronósticos), por lo que todos los valores p son frágiles y el ranking de modelos cambia entre subperiodos; (ii) elegir el mejor modelo con el back-test es en sí mismo sobreajuste; (iii) la elección de Pantone es una decisión institucional influida por el marketing, la cultura y posiblemente por los anuncios de la competencia, nada de lo cual se modela; (iv) los valores HEX son aproximaciones de estándares físicos y difieren entre fuentes hasta en ΔE₀₀ ≈ 5; (v) los votos de la industria no son independientes y sus familias 2027 se codificaron en parte a partir de descripciones verbales; (vi) el parámetro de temperatura se ajustó dentro de la muestra; (vii) las paletas por década son aproximadas y demasiado gruesas para la predicción anual; y (viii) los límites de familia y las constantes de suavizado son decisiones de los investigadores.</p>
+<p>El trabajo futuro debería añadir señales exógenas (tendencias de búsqueda, participación de colores en pasarelas, sentimiento económico), reunir más series paralelas para estimar modelos de panel y evaluar los pronósticos de forma prospectiva con reglas de puntuación propias.</p>
+<h3>8. Conclusiones</h3>
+<p>El Color del Año de Pantone es antipersistente y solo débilmente predecible a partir de su propio pasado. Diecisiete modelos reducen el error de color como máximo ~28 % frente a una elección al azar y no superan a la media histórica. Una fusión transparente de frecuencias base, novedad e indicadores adelantados de la industria de pinturas produce listas cortas útiles (acierto top-3 del 75 %). Para 2027 el método apunta a un Naranja/Tierra terracota (#C76C4C), un Azul claro (#69B2CC) o un Verde oliva (#9A9C49). El anuncio de Pantone en diciembre de 2026 será la prueba fuera de muestra.</p>
+<hr />
+<p><strong>Contribución de autoría (CRediT).</strong> <strong>Claude:</strong> Conceptualización, Metodología, Software, Análisis formal, Curaduría de datos, Visualización, Redacción – borrador original. <strong>David Aguilar:</strong> Conceptualización, Supervisión, Validación, Redacción – revisión y edición. <strong>Camila Gómez:</strong> Validación, Redacción – revisión y edición.</p>
+<p><strong>Declaración de conflicto de intereses.</strong> Los autores declaran no tener conflictos de interés. El estudio es independiente y no está afiliado ni respaldado por Pantone LLC ni por ningún fabricante de pinturas. PANTONE® es una marca registrada de Pantone LLC.</p>
+<p><strong>Declaración de uso de IA generativa.</strong> El análisis, el código y el manuscrito fueron producidos por Claude (Anthropic), un modelo de lenguaje de gran escala, bajo la dirección de los coautores humanos, quienes revisaron el contenido y asumen la responsabilidad por él.</p>
+<p><strong>Disponibilidad de datos.</strong> Todos los datos, el código y las figuras están disponibles en este repositorio (<code>data/color_database.xlsx</code>, <code>data/color_database.csv</code>, <code>fashion_color_forecast.ipynb</code>).</p>
+<h3>Referencias</h3>
+<ul class="refs">
+<li>Al-Halah, Z., Stiefelhagen, R., &amp; Grauman, K. (2017). Fashion forward: Forecasting visual style in fashion. <em>Proceedings of the IEEE International Conference on Computer Vision (ICCV)</em>, 388–397.</li>
+<li>Bates, J. M., &amp; Granger, C. W. J. (1969). The combination of forecasts. <em>Operational Research Quarterly</em>, 20(4), 451–468.</li>
+<li>Breiman, L. (2001). Random forests. <em>Machine Learning</em>, 45(1), 5–32.</li>
+<li>Diane, T., &amp; Cassidy, T. (2005). <em>Colour Forecasting</em>. Oxford: Blackwell.</li>
+<li>Eiseman, L., &amp; Recker, K. (2011). <em>Pantone: The 20th Century in Color</em>. San Francisco: Chronicle Books.</li>
+<li>Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine. <em>Annals of Statistics</em>, 29(5), 1189–1232.</li>
+<li>Gneiting, T., &amp; Raftery, A. E. (2007). Strictly proper scoring rules, prediction, and estimation. <em>Journal of the American Statistical Association</em>, 102(477), 359–378.</li>
+<li>Guo, C., Pleiss, G., Sun, Y., &amp; Weinberger, K. Q. (2017). On calibration of modern neural networks. <em>Proceedings of the 34th International Conference on Machine Learning (ICML)</em>, PMLR 70, 1321–1330.</li>
+<li>Hinton, G. E. (2002). Training products of experts by minimizing contrastive divergence. <em>Neural Computation</em>, 14(8), 1771–1800.</li>
+<li>Hyndman, R. J., &amp; Athanasopoulos, G. (2021). <em>Forecasting: Principles and Practice</em> (3rd ed.). Melbourne: OTexts.</li>
+<li>Kroeber, A. L. (1919). On the principle of order in civilization as exemplified by changes of fashion. <em>American Anthropologist</em>, 21(3), 235–263.</li>
+<li>Laver, J. (1937). <em>Taste and Fashion: From the French Revolution to the Present Day</em>. London: Harrap.</li>
+<li>Lipovetsky, G. (1994). <em>The Empire of Fashion: Dressing Modern Democracy</em>. Princeton: Princeton University Press.</li>
+<li>Lorenz, E. N. (1969). Atmospheric predictability as revealed by naturally occurring analogues. <em>Journal of the Atmospheric Sciences</em>, 26(4), 636–646.</li>
+<li>Lowe, J. W. G., &amp; Lowe, E. D. (1982). Cultural pattern and process: A study of stylistic change in women's dress. <em>American Anthropologist</em>, 84(3), 521–544.</li>
+<li>Luo, M. R., Cui, G., &amp; Rigg, B. (2001). The development of the CIE 2000 colour-difference formula: CIEDE2000. <em>Color Research &amp; Application</em>, 26(5), 340–350.</li>
+<li>Makridakis, S., Spiliotis, E., &amp; Assimakopoulos, V. (2018). Statistical and machine learning forecasting methods: Concerns and ways forward. <em>PLoS ONE</em>, 13(3), e0194889.</li>
+<li>Pedregosa, F., et al. (2011). Scikit-learn: Machine learning in Python. <em>Journal of Machine Learning Research</em>, 12, 2825–2830.</li>
+<li>Rasmussen, C. E., &amp; Williams, C. K. I. (2006). <em>Gaussian Processes for Machine Learning</em>. Cambridge, MA: MIT Press.</li>
+<li>Sharma, G., Wu, W., &amp; Dalal, E. N. (2005). The CIEDE2000 color-difference formula: Implementation notes, supplementary test data, and mathematical observations. <em>Color Research &amp; Application</em>, 30(1), 21–30.</li>
+<li>Simmel, G. (1957). Fashion. <em>American Journal of Sociology</em>, 62(6), 541–558. (Original work published 1904)</li>
+</ul>
+<p><em>Fuentes de datos web (consultadas en octubre de 2026):</em> W3Schools, "Colors Trends" (Pantone table); Pantone Color Institute press releases; Sherwin-Williams Color of the Year archive; Benjamin Moore "Looking back at the Color of the Year"; Behr 2027 COTY page (behr.com/2027coty); Kooihaus "Color of the Year 2027: every announcement, tracked"; ColorIndicator "2027 Color Trends"; Drew &amp; Jonathan "Every 2027 Color of the Year so far"; MatchMyPaintColor (Behr codes); J. Pederson, <em>colornerd</em> paint-colour dataset (MIT licence); Color-Meanings, Dunn-Edwards and Juicebox Interactive decade-palette articles.</p>
+</article></main><footer>PANTONE® is a registered trademark of Pantone LLC. Independent study, not affiliated with or endorsed by Pantone or any paint manufacturer. HEX values are sRGB approximations. · <a href="https://github.com/doar95/fashion-color-forecast">https://github.com/doar95/fashion-color-forecast</a></footer></body></html>

@@ -4,6 +4,14 @@
 
 ![2027 forecast](figures/fig7_forecast_2027.png)
 
+## 📄 Read the paper
+
+🌐 **Website:** https://doar95.github.io/fashion-color-forecast/
+
+* **English:** [paper/paper_EN.md](paper/paper_EN.md)
+* **Español:** [paper/paper_ES.md](paper/paper_ES.md)
+* Full notebook with code and figures: [fashion_color_forecast.ipynb](fashion_color_forecast.ipynb)
+
 ## What is inside
 
 | File | Content |
